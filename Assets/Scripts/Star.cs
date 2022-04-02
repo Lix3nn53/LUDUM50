@@ -41,7 +41,7 @@ public class Star : MonoBehaviour
 
     // rb.AddForce(nextDirection * speed * Time.fixedDeltaTime * multiply);
 
-    TorqueTo(transform.up, direction, rb, maxTorque, torqueDampFactor, 1);
+    TorqueTo(transform.up, direction, rb, maxTorque, torqueDampFactor, 0.1f);
 
     rb.AddForce(transform.up * speed * Time.fixedDeltaTime);
   }
