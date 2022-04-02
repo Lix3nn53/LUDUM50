@@ -12,6 +12,7 @@ public class InputListener : MonoBehaviour, IInputListener
   private InputAction ActionMove;
   private InputAction ActionPause;
   private InputAction ActionFire;
+  private InputAction ActionAim;
 
   protected void Awake()
   {
@@ -27,6 +28,8 @@ public class InputListener : MonoBehaviour, IInputListener
     ActionPause = playerInput.currentActionMap.FindAction("Pause");
 
     ActionFire = playerInput.currentActionMap.FindAction("Fire");
+
+    ActionAim = playerInput.currentActionMap.FindAction("Aim");
   }
 
   public InputAction GetAction(InputActionType type)
@@ -39,6 +42,8 @@ public class InputListener : MonoBehaviour, IInputListener
         return ActionPause;
       case InputActionType.Fire:
         return ActionFire;
+      case InputActionType.Aim:
+        return ActionAim;
       default:
         return null;
     }
