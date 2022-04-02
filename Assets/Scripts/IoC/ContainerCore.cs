@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lix.Core;
 
-public class ContainerGame1 : MonoBehaviour
+public class ContainerCore : DIContainerRegisterMono
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  [SerializeField] private InputListener inputListener;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  public override void RegisterDependencies()
+  {
+    DIContainer.Register(new ServiceDescriptor(inputListener, typeof(IInputListener), ServiceLifetime.Singleton));
+
+
+  }
 }
