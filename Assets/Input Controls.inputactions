@@ -6,7 +6,7 @@
             "id": "7e02f5c9-5a39-4c88-a7a8-c312bd827398",
             "actions": [
                 {
-                    "name": "Debug",
+                    "name": "Fire",
                     "type": "Button",
                     "id": "cc564226-42f6-4d67-b54a-44c8e80ca3a2",
                     "expectedControlType": "Button",
@@ -37,11 +37,11 @@
                 {
                     "name": "",
                     "id": "805d441a-3830-49f7-8355-a798c15a8372",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "GameControlScheme",
-                    "action": "Debug",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -27,46 +27,21 @@ public class Star : MonoBehaviour
     this.world = DIContainer.GetService<World>();
 
     inputListener = DIContainer.GetService<IInputListener>();
-
-    inputListener.GetAction(InputActionType.Debug).performed += OnDebugInputPerformed;
-  }
-
-  private void OnDebugInputPerformed(InputAction.CallbackContext context)
-  {
-    InternalDebug.Log("STAR OnDebugInputPerformed");
-
-    Vector2 direction = (world.transform.position - transform.position);
-
-    direction.Normalize();
-
-    // Vector2 direction = (world.transform.position - transform.position);
-
-    // direction.Normalize();
-
-    // float rotateAmount = Vector3.Cross(direction, transform.up).z;
-
-    rb.velocity = direction * 500;
   }
 
   private void FixedUpdate()
   {
-    float distance = Vector3.Distance(world.transform.position, transform.position);
+    // float distance = Vector3.Distance(world.transform.position, transform.position);
 
     Vector2 direction = (world.transform.position - transform.position);
     direction.Normalize();
 
-    Vector2 nextDirection = direction;
-    nextDirection.Normalize();
-
-    float currentSpeed = Vector3.SqrMagnitude(rb.velocity);
-    InternalDebug.Log("STAR currentSpeed: " + currentSpeed);
-
-    float multiply = 1000 / distance;
-    if (multiply < 1f) multiply = 1f;
+    // float multiply = 1000 / distance;
+    // if (multiply < 1f) multiply = 1f;
 
     // rb.AddForce(nextDirection * speed * Time.fixedDeltaTime * multiply);
 
-    TorqueTo(transform.up, nextDirection, rb, maxTorque, torqueDampFactor, 1);
+    TorqueTo(transform.up, direction, rb, maxTorque, torqueDampFactor, 1);
 
     rb.AddForce(transform.up * speed * Time.fixedDeltaTime);
   }
