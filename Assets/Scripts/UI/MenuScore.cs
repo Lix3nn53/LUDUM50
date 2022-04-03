@@ -12,23 +12,33 @@ public class MenuScore : MonoBehaviour
 
   // Outer Dependencies
   private GameManager gameManager;
+
   // Start is called before the first frame update
   void Start()
   {
     this.gameManager = DIContainer.GetService<GameManager>();
 
     this.gameManager.OnScoreChangeEvent += OnScoreChange;
-
-    this.text.text = "Year " + this.gameManager.startYear + " / " + (this.gameManager.startYear + this.gameManager.targetScore);
   }
 
   private void OnScoreChange(int score)
   {
-    this.text.text = "Year " + (this.gameManager.startYear + score) + " / " + (this.gameManager.startYear + this.gameManager.targetScore);
+    int targetScoreTotal = 0;
 
-    int prevTarget = (this.gameManager.currentLevel - 1) * 100;
+    for (int i = 1; i <= gameManager.currentLevel; i++)
+    {
+      targetScoreTotal += gameManager.GetTargetScore(i);
+    }
 
-    slider.value = (float)(score - prevTarget) / (float)(this.gameManager.targetScore - prevTarget);
+    int targetScore = gameManager.GetTargetScore(gameManager.currentLevel);
+    int prevTargetScoreTotal = targetScoreTotal - gameManager.GetTargetScore(gameManager.currentLevel);
+
+    int currentYear = this.gameManager.startYear + prevTargetScoreTotal;
+    int targetYear = this.gameManager.startYear + targetScoreTotal;
+
+    this.text.text = "Year " + currentYear + " / " + targetYear;
+
+    slider.value = (float)(score) / (float)(targetScore);
   }
 
   private void OnDestroy()

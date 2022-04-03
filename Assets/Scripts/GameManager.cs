@@ -8,9 +8,8 @@ using Lix.Core;
 public class GameManager : MonoBehaviour
 {
   public int startYear = 2022;
-  public int targetScore = 100;
-  [SerializeField] private int yearPeriod = 10;
   [SerializeField] private int score;
+  [SerializeField] private int yearPeriod = 10;
   [SerializeField] private int targetScoreBase = 60;
   [SerializeField] private int targetScoreAddition = 20;
 
@@ -49,11 +48,9 @@ public class GameManager : MonoBehaviour
   public void StartScore()
   {
     InternalDebug.Log("StartLevel");
-    this.targetScore = ((currentLevel - 1) * targetScoreAddition) + targetScoreBase;
     this.score = 0;
 
-    OnScoreChangeEvent?.Invoke(score);
-    InvokeRepeating("AddScore", 1f, yearPeriod);
+    InvokeRepeating("AddScore", 0f, yearPeriod);
   }
 
   public void StopScore()
@@ -66,8 +63,11 @@ public class GameManager : MonoBehaviour
     this.score++;
     OnScoreChangeEvent?.Invoke(score);
 
+    int targetScore = GetTargetScore(currentLevel);
+
     if (score >= targetScore)
     {
+      Time.timeScale = 0;
       OnLevelCompleteEvent?.Invoke(this.startYear + this.score);
       StopScore();
       this.currentLevel++;
@@ -78,5 +78,16 @@ public class GameManager : MonoBehaviour
   {
     StopScore();
     OnGameOverEvent?.Invoke(this.startYear + this.score);
+    this.currentLevel = 1;
+  }
+
+  public int GetTargetScore(int level)
+  {
+    if (level <= 0)
+    {
+      return 0;
+    }
+
+    return ((level - 1) * targetScoreAddition) + targetScoreBase;
   }
 }

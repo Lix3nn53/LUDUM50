@@ -32,6 +32,11 @@ public class MenuLevelComplete : MonoBehaviour
 
   private void OnDestroy()
   {
-    this.gameManager.OnGameOverEvent -= OnLevelComplete;
+    this.gameManager.OnLevelCompleteEvent -= OnLevelComplete;
+  }
+
+  public void ButtonToSpaceStation()
+  {
+    Time.timeScale = 1;
   }
 }
