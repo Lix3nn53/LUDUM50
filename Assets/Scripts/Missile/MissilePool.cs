@@ -7,8 +7,6 @@ public class MissilePool : GameObjectPool
 {
   protected override void Awake()
   {
-    InternalDebug.Log("MissilePool.Awake()");
-    InternalDebug.Log(this.GetType().Name);
     PoolManager.Add(this.GetType().Name, this);
   }
 

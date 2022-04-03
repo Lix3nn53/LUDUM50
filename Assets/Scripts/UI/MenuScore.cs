@@ -19,15 +19,20 @@ public class MenuScore : MonoBehaviour
 
     this.gameManager.OnScoreChangeEvent += OnScoreChange;
 
-    this.text.text = "Year " + this.gameManager.startYear;
+    this.text.text = "Year " + this.gameManager.startYear + " / " + (this.gameManager.startYear + this.gameManager.targetScore);
   }
 
   private void OnScoreChange(int score)
   {
-    text.text = "Year " + (this.gameManager.startYear + score);
+    this.text.text = "Year " + (this.gameManager.startYear + score) + " / " + (this.gameManager.startYear + this.gameManager.targetScore);
 
     int prevTarget = (this.gameManager.currentLevel - 1) * 100;
 
     slider.value = (float)(score - prevTarget) / (float)(this.gameManager.targetScore - prevTarget);
+  }
+
+  private void OnDestroy()
+  {
+    this.gameManager.OnScoreChangeEvent -= OnScoreChange;
   }
 }

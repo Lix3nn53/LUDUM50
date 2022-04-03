@@ -15,6 +15,13 @@ namespace Lix.Core
 
     public static void Add(string poolName, GameObjectPool pool)
     {
+      if (PoolDict.ContainsKey(poolName))
+      {
+        InternalDebug.LogWarning("PoolManager: Pool with name " + poolName + " already exists. Overriding.");
+        PoolDict[poolName] = pool;
+        return;
+      }
+
       PoolDict.Add(poolName, pool);
     }
   }

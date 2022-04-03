@@ -30,4 +30,9 @@ public class MenuGameOver : MonoBehaviour
       child.gameObject.SetActive(true);
     }
   }
+
+  private void OnDestroy()
+  {
+    this.gameManager.OnGameOverEvent -= OnGameOver;
+  }
 }

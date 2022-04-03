@@ -111,4 +111,11 @@ public class Spacestation : MonoBehaviour
 
     transform.RotateAround(world.transform.position, Vector3.forward, Time.fixedDeltaTime * movementSpeed * movementInput);
   }
+
+  private void OnDestroy()
+  {
+    InputAction moveAction = inputListener.GetAction(InputActionType.Move);
+    moveAction.performed -= OnMovementInputPerformed;
+    moveAction.canceled -= OnMovementInputCanceled;
+  }
 }

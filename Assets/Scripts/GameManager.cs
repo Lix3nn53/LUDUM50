@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Lix.Core;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,9 +15,7 @@ public class GameManager : MonoBehaviour
   [SerializeField] private int targetScoreAddition = 20;
 
   // State
-  public int currentLevel;
-
-  private float nextActionTime = 0.0f;
+  public int currentLevel = 1;
 
   // Events
 
@@ -28,19 +28,29 @@ public class GameManager : MonoBehaviour
   public delegate void OnLevelComplete(int year);
   public event OnLevelComplete OnLevelCompleteEvent;
 
-
-  // Start is called before the first frame update
   void Start()
   {
     this.startYear = DateTime.Now.Year;
 
-    StartNextLevel();
+    StartScore();
+    SceneManager.sceneLoaded += OnSceneLoaded;
   }
 
-  public void StartNextLevel()
+
+  // Start is called before the first frame update
+  void OnSceneLoaded(Scene scene, LoadSceneMode mode)
   {
-    this.currentLevel++;
+    if (scene.buildIndex == 1) // Only scene where score is updated
+    {
+      StartScore();
+    }
+  }
+
+  public void StartScore()
+  {
+    InternalDebug.Log("StartLevel");
     this.targetScore = ((currentLevel - 1) * targetScoreAddition) + targetScoreBase;
+    this.score = 0;
 
     OnScoreChangeEvent?.Invoke(score);
     InvokeRepeating("AddScore", 1f, yearPeriod);
@@ -60,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
       OnLevelCompleteEvent?.Invoke(this.startYear + this.score);
       StopScore();
+      this.currentLevel++;
     }
   }
 

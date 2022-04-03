@@ -80,7 +80,7 @@ namespace Lix.Core
           }
         }
 
-        InternalDebug.Log(progress);
+        // InternalDebug.Log(progress);
         yield return null;
       }
     }

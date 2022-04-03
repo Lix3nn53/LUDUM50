@@ -52,4 +52,9 @@ public class MissileContainer : MonoBehaviour
     missile.transform.localScale = Vector3.one;
     missile.SetActive(true);
   }
+
+  private void OnDestroy()
+  {
+    inputListener.GetAction(InputActionType.Fire).performed -= OnFireInputPerformed;
+  }
 }
