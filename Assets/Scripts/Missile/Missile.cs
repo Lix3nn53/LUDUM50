@@ -13,9 +13,14 @@ public class Missile : MonoBehaviour
   // Inner Dependencies
   private Rigidbody2D rb;
 
+  // Outer Dependencies
+
+  private MissileContainer missileContainer;
+
   void Start()
   {
     this.rb = this.GetComponent<Rigidbody2D>();
+    this.missileContainer = DIContainer.GetService<MissileContainer>();
   }
 
   // Update is called once per frame
@@ -35,11 +40,13 @@ public class Missile : MonoBehaviour
 
   void OnCollisionEnter2D(Collision2D collision)
   {
-    InternalDebug.Log("Missile OnCollisionEnter2D collider: " + collision.collider.name, collision.collider);
-    InternalDebug.Log("Missile OnCollisionEnter2D otherCollider: " + collision.otherCollider.name, collision.otherCollider);
+    if (!isFired)
+    {
+      missileContainer.ReloadCoroutine();
+    }
+
     explosion.transform.parent = null;
-    explosion.transform.gameObject.SetActive(true);
-    explosion.Play(); // Particle system will be destroyed after it has finished playing
+    explosion.gameObject.SetActive(true); // Particle system will be destroyed after it has finished playing
 
     // audioSource.Play();
 

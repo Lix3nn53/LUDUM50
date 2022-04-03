@@ -17,6 +17,7 @@ public class Star : MonoBehaviour
 
   // Outer Dependencies
   private World world;
+  private Vector2 target;
   private IInputListener inputListener;
 
   // Start is called before the first frame update
@@ -25,15 +26,16 @@ public class Star : MonoBehaviour
     this.rb = this.GetComponent<Rigidbody2D>();
 
     this.world = DIContainer.GetService<World>();
+    this.target = this.world.transform.position;
 
     inputListener = DIContainer.GetService<IInputListener>();
   }
 
   private void FixedUpdate()
   {
-    // float distance = Vector3.Distance(world.transform.position, transform.position);
+    // float distance = Vector2.Distance(target, new Vector2(transform.position.x, transform.position.y));
 
-    Vector2 direction = (world.transform.position - transform.position);
+    Vector2 direction = target - new Vector2(transform.position.x, transform.position.y);
     direction.Normalize();
 
     // float multiply = 1000 / distance;
@@ -85,6 +87,16 @@ public class Star : MonoBehaviour
     float value = (float)((System.Math.Atan2(y, x) / System.Math.PI) * 180);
     if (value < 0) value += 360f;
     return value;
+  }
+
+  void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.collider.tag == "World")
+    {
+      world.OnCollideWithStar();
+
+      this.target = Vector2.zero;
+    }
   }
 
 }

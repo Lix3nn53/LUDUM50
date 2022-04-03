@@ -30,6 +30,11 @@ public class MissileContainer : MonoBehaviour
 
     transform.GetChild(0).GetComponent<Missile>().Fire();
 
+    ReloadCoroutine();
+  }
+
+  public void ReloadCoroutine()
+  {
     StartCoroutine(Reload());
   }
 
