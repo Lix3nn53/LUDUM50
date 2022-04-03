@@ -18,6 +18,8 @@ public class Star : MonoBehaviour
   // Outer Dependencies
   private World world;
   private Vector2 target;
+
+  private bool hitWorld;
   private IInputListener inputListener;
 
   // Start is called before the first frame update
@@ -33,6 +35,8 @@ public class Star : MonoBehaviour
 
   private void FixedUpdate()
   {
+    if (this.hitWorld) return;
+
     // float distance = Vector2.Distance(target, new Vector2(transform.position.x, transform.position.y));
 
     Vector2 direction = target - new Vector2(transform.position.x, transform.position.y);
@@ -91,11 +95,15 @@ public class Star : MonoBehaviour
 
   void OnCollisionEnter2D(Collision2D collision)
   {
+    if (this.hitWorld) return;
+
     if (collision.collider.tag == "World")
     {
       world.OnCollideWithStar();
 
       this.target = Vector2.zero;
+
+      this.hitWorld = true;
     }
   }
 

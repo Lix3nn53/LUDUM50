@@ -22,6 +22,9 @@ public class World : MonoBehaviour
 
   public void OnCollideWithStar()
   {
+    starExplosion.transform.parent = null;
     starExplosion.gameObject.SetActive(true); // Particle system will be destroyed after it has finished playing
+
+    Destroy(gameObject);
   }
 }
