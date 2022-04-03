@@ -20,8 +20,13 @@ public class GameManager : MonoBehaviour
   // Events
 
   public delegate void OnScoreChange(int newValue);
-
   public event OnScoreChange OnScoreChangeEvent;
+
+  public delegate void OnGameOver(int year);
+  public event OnGameOver OnGameOverEvent;
+
+  public delegate void OnLevelComplete(int year);
+  public event OnLevelComplete OnLevelCompleteEvent;
 
 
   // Start is called before the first frame update
@@ -50,5 +55,17 @@ public class GameManager : MonoBehaviour
   {
     this.score++;
     OnScoreChangeEvent?.Invoke(score);
+
+    if (score >= targetScore)
+    {
+      OnLevelCompleteEvent?.Invoke(this.startYear + this.score);
+      StopScore();
+    }
+  }
+
+  public void GameOver()
+  {
+    StopScore();
+    OnGameOverEvent?.Invoke(this.startYear + this.score);
   }
 }

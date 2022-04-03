@@ -1,19 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lix.Core;
+using TMPro;
 
 public class MenuGameOver : MonoBehaviour
 {
+
+  [SerializeField] private TMP_Text score;
+
+  private GameManager gameManager;
+
   private void Start()
   {
+    this.gameManager = DIContainer.GetService<GameManager>();
+    this.gameManager.OnGameOverEvent += OnGameOver;
 
     foreach (Transform child in transform)
     {
       child.gameObject.SetActive(false);
     }
   }
-  public void OnGameOver()
+  public void OnGameOver(int year)
   {
+    score.text = "You have reached year " + year;
+
     foreach (Transform child in transform)
     {
       child.gameObject.SetActive(true);

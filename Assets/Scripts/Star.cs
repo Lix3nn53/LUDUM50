@@ -18,8 +18,7 @@ public class Star : MonoBehaviour
   // Outer Dependencies
   private World world;
   private IInputListener inputListener;
-
-  private MenuGameOver menuGameOver;
+  private GameManager gameManager; // To call gameover on world collision
 
   // Properties
 
@@ -36,7 +35,7 @@ public class Star : MonoBehaviour
 
     inputListener = DIContainer.GetService<IInputListener>();
 
-    this.menuGameOver = DIContainer.GetService<MenuGameOver>();
+    this.gameManager = DIContainer.GetService<GameManager>();
   }
 
   private void FixedUpdate()
@@ -111,7 +110,7 @@ public class Star : MonoBehaviour
 
       this.hitWorld = true;
 
-      this.menuGameOver.OnGameOver();
+      this.gameManager.GameOver();
     }
   }
 
