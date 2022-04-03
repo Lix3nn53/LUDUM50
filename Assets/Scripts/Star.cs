@@ -17,10 +17,14 @@ public class Star : MonoBehaviour
 
   // Outer Dependencies
   private World world;
-  private Vector2 target;
+  private IInputListener inputListener;
+
+  private MenuGameOver menuGameOver;
+
+  // Properties
 
   private bool hitWorld;
-  private IInputListener inputListener;
+  private Vector2 target;
 
   // Start is called before the first frame update
   void Start()
@@ -31,6 +35,8 @@ public class Star : MonoBehaviour
     this.target = this.world.transform.position;
 
     inputListener = DIContainer.GetService<IInputListener>();
+
+    this.menuGameOver = DIContainer.GetService<MenuGameOver>();
   }
 
   private void FixedUpdate()
@@ -104,6 +110,8 @@ public class Star : MonoBehaviour
       this.target = Vector2.zero;
 
       this.hitWorld = true;
+
+      this.menuGameOver.OnGameOver();
     }
   }
 
