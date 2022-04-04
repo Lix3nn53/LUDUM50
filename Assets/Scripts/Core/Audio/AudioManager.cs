@@ -30,7 +30,7 @@ namespace Lix.Core
 
     private void Start()
     {
-      // Play("Background");
+      Play("Background");
     }
 
     public void Play(string name)

@@ -10,8 +10,11 @@ public class ContainerCore : DIContainerRegisterMono
 
   public override void RegisterDependencies()
   {
-    DIContainer.Register(new ServiceDescriptor(inputListener, typeof(IInputListener), ServiceLifetime.Singleton));
     DIContainer.Register(new ServiceDescriptor(audioManager, ServiceLifetime.Singleton));
 
+    if (inputListener != null)
+    {
+      DIContainer.Register(new ServiceDescriptor(inputListener, typeof(IInputListener), ServiceLifetime.Singleton));
+    }
   }
 }
