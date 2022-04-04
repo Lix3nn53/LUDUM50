@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 {
   public int startYear = 2022;
   [SerializeField] private int score;
-  public int money;
+  [SerializeField] private int money;
+  public int Money { get { return money; } private set { money = value; } }
   [SerializeField] private int moneyPerHit = 100000;
   [SerializeField] private int yearPeriod = 10;
   [SerializeField] private int targetScoreBase = 60;
@@ -105,5 +106,12 @@ public class GameManager : MonoBehaviour
     }
 
     return ((level - 1) * targetScoreAddition) + targetScoreBase;
+  }
+
+  public int AddMoney(int amount)
+  {
+    money += amount;
+    OnMoneyChangeEvent?.Invoke(money);
+    return money;
   }
 }

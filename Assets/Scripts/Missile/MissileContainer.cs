@@ -42,7 +42,7 @@ public class MissileContainer : MonoBehaviour
 
   IEnumerator Reload()
   {
-    yield return new WaitForSeconds(upgradeManager.ReloadDelay);
+    yield return new WaitForSeconds(upgradeManager.GetReloadDelay());
 
     InternalDebug.Log("Reloading");
     // Transform missile = Instantiate(missilePrefab, this.transform, false);

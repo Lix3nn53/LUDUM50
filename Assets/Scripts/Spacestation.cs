@@ -109,7 +109,7 @@ public class Spacestation : MonoBehaviour
       return;
     }
 
-    transform.RotateAround(world.transform.position, Vector3.forward, Time.fixedDeltaTime * upgradeManager.StationSpeed * movementInput);
+    transform.RotateAround(world.transform.position, Vector3.forward, Time.fixedDeltaTime * upgradeManager.GetStationSpeed() * movementInput);
   }
 
   private void OnDestroy()

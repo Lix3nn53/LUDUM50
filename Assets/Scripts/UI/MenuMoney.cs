@@ -16,12 +16,12 @@ public class MenuMoney : MonoBehaviour
     this.gameManager = DIContainer.GetService<GameManager>();
     this.gameManager.OnMoneyChangeEvent += OnMoneyChange;
 
-    OnMoneyChange(this.gameManager.money);
+    OnMoneyChange(this.gameManager.Money);
   }
 
   public void OnMoneyChange(int money)
   {
-    text.text = money + " $";
+    text.text = money + "M $";
   }
 
   private void OnDestroy()
