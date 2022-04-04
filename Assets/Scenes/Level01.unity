@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2991723, g: 0.30652443, b: 0.7830189, a: 1}
+  m_Color: {r: 0.3882353, g: 0.39607844, b: 0.9647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -18979,7 +18979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5553578, g: 0.5639018, b: 0.6037736, a: 1}
+  m_Color: {r: 0.5530081, g: 0.62868285, b: 0.71599996, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19050,7 +19050,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7788104, y: 1}
+    m_SensorSize: {x: 1.7779887, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
