@@ -33,7 +33,7 @@ public class MenuScore : MonoBehaviour
     int targetScore = gameManager.GetTargetScore(gameManager.currentLevel);
     int prevTargetScoreTotal = targetScoreTotal - gameManager.GetTargetScore(gameManager.currentLevel);
 
-    int currentYear = this.gameManager.startYear + prevTargetScoreTotal;
+    int currentYear = this.gameManager.startYear + prevTargetScoreTotal + score;
     int targetYear = this.gameManager.startYear + targetScoreTotal;
 
     this.text.text = "Year " + currentYear + " / " + targetYear;
