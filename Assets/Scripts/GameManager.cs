@@ -86,7 +86,13 @@ public class GameManager : MonoBehaviour
   public void GameOver()
   {
     StopScore();
-    OnGameOverEvent?.Invoke(this.startYear + this.score);
+    int targetScoreTotal = GetTotalTargetScore();
+
+    int targetScore = GetTargetScore(currentLevel);
+    int prevTargetScoreTotal = targetScoreTotal - GetTargetScore(currentLevel);
+
+    int currentYear = this.startYear + prevTargetScoreTotal + score;
+    OnGameOverEvent?.Invoke(currentYear);
     this.currentLevel = 1;
     this.money = 0;
   }
@@ -113,5 +119,17 @@ public class GameManager : MonoBehaviour
     money += amount;
     OnMoneyChangeEvent?.Invoke(money);
     return money;
+  }
+
+  public int GetTotalTargetScore()
+  {
+    int targetScoreTotal = 0;
+
+    for (int i = 1; i <= currentLevel; i++)
+    {
+      targetScoreTotal += GetTargetScore(i);
+    }
+
+    return targetScoreTotal;
   }
 }

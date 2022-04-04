@@ -9,7 +9,10 @@ namespace Lix.Core
     public static AudioManager Instance;
 
     public Sound[] soundList;
-    private static Dictionary<string, AudioSource> sources = new Dictionary<string, AudioSource>();
+    private Dictionary<string, AudioSource> sources = new Dictionary<string, AudioSource>();
+
+    private float masterVolume = 1f;
+    public float MasterVolume { get { return masterVolume; } private set { masterVolume = value; } }
 
     // Start is called before the first frame update
     protected void Awake()
@@ -20,7 +23,7 @@ namespace Lix.Core
 
         AudioSource source = s.source = gameObject.AddComponent<AudioSource>();
         s.source.clip = s.clip;
-        s.source.volume = s.volume;
+        s.source.volume = s.volume * masterVolume;
         s.source.pitch = s.pitch;
         s.source.loop = s.loop;
 
@@ -41,6 +44,24 @@ namespace Lix.Core
     public void SetVolume(string name, float v)
     {
       sources[name].volume = v;
+    }
+
+    public void SetMasterVolume(float v)
+    {
+      masterVolume = v;
+
+      foreach (KeyValuePair<string, AudioSource> entry in sources)
+      {
+        entry.Value.volume = entry.Value.volume * masterVolume;
+      }
+
+      foreach (Sound s in soundList)
+      {
+        if (sources.ContainsKey(s.soundName))
+        {
+          sources[s.soundName].volume = s.volume * masterVolume;
+        }
+      }
     }
   }
 }

@@ -49,7 +49,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 816513925ef782444931da4561612c75, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - soundName: MissileExplosion
     clip: {fileID: 8300000, guid: 7f2e6c8187dc5244fbf41e2ad67a6fcb, type: 3}

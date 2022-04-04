@@ -23,12 +23,7 @@ public class MenuScore : MonoBehaviour
 
   private void OnScoreChange(int score)
   {
-    int targetScoreTotal = 0;
-
-    for (int i = 1; i <= gameManager.currentLevel; i++)
-    {
-      targetScoreTotal += gameManager.GetTargetScore(i);
-    }
+    int targetScoreTotal = gameManager.GetTotalTargetScore();
 
     int targetScore = gameManager.GetTargetScore(gameManager.currentLevel);
     int prevTargetScoreTotal = targetScoreTotal - gameManager.GetTargetScore(gameManager.currentLevel);
