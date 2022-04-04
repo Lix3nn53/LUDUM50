@@ -13,6 +13,8 @@ public class Missile : MonoBehaviour
   // Inner Dependencies
   private Rigidbody2D rb;
 
+  private TrailRenderer trailRenderer;
+
   // Outer Dependencies
 
   private MissileContainer missileContainer;
@@ -20,11 +22,14 @@ public class Missile : MonoBehaviour
   void Start()
   {
     this.rb = this.GetComponent<Rigidbody2D>();
+    this.trailRenderer = this.GetComponentInChildren<TrailRenderer>();
 
     this.missileContainer = DIContainer.GetService<MissileContainer>();
     UpgradeManager upgradeManager = DIContainer.GetService<UpgradeManager>();
 
     this.rb.sharedMaterial.bounciness = upgradeManager.GetMissilePower();
+
+    this.trailRenderer.gameObject.SetActive(false);
   }
 
   // Update is called once per frame
@@ -40,6 +45,8 @@ public class Missile : MonoBehaviour
     isFired = true;
 
     transform.parent = null;
+
+    this.trailRenderer.gameObject.SetActive(true);
   }
 
   void OnCollisionEnter2D(Collision2D collision)
