@@ -18,9 +18,12 @@ public class Missile : MonoBehaviour
   // Outer Dependencies
 
   private MissileContainer missileContainer;
+  private AudioManager audioManager;
 
   void Start()
   {
+    this.audioManager = DIContainer.GetService<AudioManager>();
+
     this.rb = this.GetComponent<Rigidbody2D>();
     this.trailRenderer = this.GetComponentInChildren<TrailRenderer>();
 
@@ -60,6 +63,7 @@ public class Missile : MonoBehaviour
     explosion.gameObject.SetActive(true); // Particle system will be destroyed after it has finished playing
 
     // audioSource.Play();
+    audioManager.Play("MissileExplosion");
 
     Destroy(gameObject);
     // Cant return to pool because explosion is removed from object hierarchy

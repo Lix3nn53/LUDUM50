@@ -34,9 +34,4 @@ public class MenuLevelComplete : MonoBehaviour
   {
     this.gameManager.OnLevelCompleteEvent -= OnLevelComplete;
   }
-
-  public void ButtonToSpaceStation()
-  {
-    Time.timeScale = 1;
-  }
 }

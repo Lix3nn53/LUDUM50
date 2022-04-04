@@ -173,8 +173,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d73af9046fc8a4d8ac26e07ad5ed6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 120
-  maxTorque: 4000
+  baseSpeed: 60
+  speedPerLevel: 30
+  baseMaxTorque: 2000
+  maxTorquePerLevel: 1000
   torqueDampFactor: 1
 --- !u!50 &47361181
 Rigidbody2D:
@@ -2519,6 +2521,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5f3e0188c6043ea4b8afccbde7e853cf, type: 3}
   m_PrefabInstance: {fileID: 791916630}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &804474714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 804474716}
+  - component: {fileID: 804474715}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &804474715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804474714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e971aba25749e045bfd61327341bcd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - soundName: MissileExplosion
+    clip: {fileID: 8300000, guid: 7f2e6c8187dc5244fbf41e2ad67a6fcb, type: 3}
+    volume: 0.2
+    pitch: 1.1
+    loop: 0
+    source: {fileID: 0}
+  - soundName: StarExplosion
+    clip: {fileID: 8300000, guid: e91518dd78d1321449218e77d1ed6f77, type: 3}
+    volume: 0.5
+    pitch: 0.92
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &804474716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804474714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &824457218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3803,7 +3862,7 @@ MonoBehaviour:
   startYear: 2022
   score: 0
   money: 0
-  moneyPerHit: 1
+  moneyPerHit: 2
   yearPeriod: 1
   targetScoreBase: 25
   targetScoreAddition: 15
@@ -19051,7 +19110,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7769517, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -24075,6 +24134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputListener: {fileID: 1676858687}
+  audioManager: {fileID: 804474715}
 --- !u!1 &2065268303
 GameObject:
   m_ObjectHideFlags: 0

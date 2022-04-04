@@ -8,9 +8,13 @@ using Lix.Core;
 public class Star : MonoBehaviour
 {
   // Settings
-  [SerializeField] private float speed = 1.0f;
-  [SerializeField] private float maxTorque = 1000.0f;
-  [SerializeField] private float torqueDampFactor = 10.0f;
+  [SerializeField] private float baseSpeed = 40.0f;
+  [SerializeField] private float speedPerLevel = 20.0f;
+  [SerializeField] private float baseMaxTorque = 1000.0f;
+  [SerializeField] private float maxTorquePerLevel = 500.0f;
+  [SerializeField] private float baseScale = 10.0f;
+  [SerializeField] private float scalePerLevel = 1.0f;
+  [SerializeField] private float torqueDampFactor = 1.0f;
 
   // Inner Dependencies
   private Rigidbody2D rb;
@@ -19,6 +23,7 @@ public class Star : MonoBehaviour
   private World world;
   private IInputListener inputListener;
   private GameManager gameManager; // To call gameover on world collision
+  private AudioManager audioManager;
 
   // Properties
 
@@ -28,6 +33,8 @@ public class Star : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+    this.audioManager = DIContainer.GetService<AudioManager>();
+
     this.rb = this.GetComponent<Rigidbody2D>();
 
     this.world = DIContainer.GetService<World>();
@@ -36,6 +43,9 @@ public class Star : MonoBehaviour
     inputListener = DIContainer.GetService<IInputListener>();
 
     this.gameManager = DIContainer.GetService<GameManager>();
+
+    this.transform.localScale = Vector3.one * (baseScale + scalePerLevel * (gameManager.currentLevel - 1));
+    InternalDebug.Log("Star size: " + this.transform.localScale.x);
   }
 
   private void FixedUpdate()
@@ -52,8 +62,11 @@ public class Star : MonoBehaviour
 
     // rb.AddForce(nextDirection * speed * Time.fixedDeltaTime * multiply);
 
+    float maxTorque = baseMaxTorque + (maxTorquePerLevel * (gameManager.currentLevel - 1));
+
     TorqueTo(transform.up, direction, rb, maxTorque, torqueDampFactor, 0.1f);
 
+    float speed = baseSpeed + (speedPerLevel * (gameManager.currentLevel - 1));
     rb.AddForce(transform.up * speed * Time.fixedDeltaTime);
   }
 
@@ -111,6 +124,8 @@ public class Star : MonoBehaviour
       this.hitWorld = true;
 
       this.gameManager.GameOver();
+
+      audioManager.Play("StarExplosion");
     }
     else if (collision.collider.tag == "Missile")
     {

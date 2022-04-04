@@ -30,6 +30,7 @@ namespace Lix.Core
       InternalDebug.Log("Loading scene: " + sceneIndex);
       slider.gameObject.SetActive(true);
 
+      Time.timeScale = 1;
       StartCoroutine(LoadAsynchronously(sceneIndex));
     }
 
