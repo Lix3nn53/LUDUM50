@@ -2306,6 +2306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00eed25cfac82b4582a4398f79eb175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startAngle: -60
 --- !u!1 &775376309
 GameObject:
   m_ObjectHideFlags: 0

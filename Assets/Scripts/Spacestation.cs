@@ -15,6 +15,10 @@ public class Spacestation : MonoBehaviour
   private InputAction aimAction;
   private UpgradeManager upgradeManager;
 
+  // Inspector Properties
+
+  [SerializeField] private float startAngle = -60.0f;
+
   // Start is called before the first frame update
   void Start()
   {
@@ -29,6 +33,8 @@ public class Spacestation : MonoBehaviour
     moveAction.canceled += OnMovementInputCanceled;
 
     aimAction = inputListener.GetAction(InputActionType.Aim);
+
+    transform.RotateAround(world.transform.position, Vector3.forward, startAngle);
   }
 
   public void OnMovement(float movement)
