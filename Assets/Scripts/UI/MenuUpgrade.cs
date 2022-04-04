@@ -26,7 +26,13 @@ public class MenuUpgrade : MonoBehaviour
     gameManager = DIContainer.GetService<GameManager>();
     upgradeManager = DIContainer.GetService<UpgradeManager>();
 
-    balanceText.text = "Balance: " + gameManager.Money + "M $";
+    balanceText.text = "Balance: " + gameManager.Money + " $";
+    levelStationText.text = "Lv " + upgradeManager.LevelStation;
+    costStationText.text = "Cost: " + upgradeManager.GetUpgradeCost(upgradeManager.LevelStation) + " $";
+    levelMissileText.text = "Lv " + upgradeManager.LevelMissile;
+    costMissileText.text = "Cost: " + upgradeManager.GetUpgradeCost(upgradeManager.LevelMissile) + " $";
+    levelReloadText.text = "Lv " + upgradeManager.LevelReload;
+    costReloadText.text = "Cost: " + upgradeManager.GetUpgradeCost(upgradeManager.LevelReload) + " $";
   }
 
   public void ButtonUpgradeStation()
