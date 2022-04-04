@@ -9,9 +9,13 @@ public class ContainerGame : DIContainerRegisterMono
   [SerializeField] private World world;
   [SerializeField] private MissileContainer missileContainer;
 
+  [SerializeField] private UpgradeManager upgradeManager;
+
   public override void RegisterDependencies()
   {
     DIContainer.Register(new ServiceDescriptor(gameManager, ServiceLifetime.Singleton));
+    DIContainer.Register(new ServiceDescriptor(upgradeManager, ServiceLifetime.Singleton));
+
     DIContainer.Register(new ServiceDescriptor(world, ServiceLifetime.Transient));
     DIContainer.Register(new ServiceDescriptor(missileContainer, ServiceLifetime.Transient));
 

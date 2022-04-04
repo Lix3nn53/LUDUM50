@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
   public int startYear = 2022;
   [SerializeField] private int score;
+  public int money;
+  [SerializeField] private int moneyPerHit = 100000;
   [SerializeField] private int yearPeriod = 10;
   [SerializeField] private int targetScoreBase = 60;
   [SerializeField] private int targetScoreAddition = 20;
@@ -18,7 +20,7 @@ public class GameManager : MonoBehaviour
 
   // Events
 
-  public delegate void OnScoreChange(int newValue);
+  public delegate void OnScoreChange(int score);
   public event OnScoreChange OnScoreChangeEvent;
 
   public delegate void OnGameOver(int year);
@@ -27,18 +29,24 @@ public class GameManager : MonoBehaviour
   public delegate void OnLevelComplete(int year);
   public event OnLevelComplete OnLevelCompleteEvent;
 
+  public delegate void OnMissileHitStar();
+  public event OnMissileHitStar OnMissileHitStarEvent;
+
+  public delegate void OnMoneyChange(int money);
+  public event OnMoneyChange OnMoneyChangeEvent;
+
   void Start()
   {
     this.startYear = DateTime.Now.Year;
 
     StartScore();
+    OnMoneyChangeEvent?.Invoke(money);
     SceneManager.sceneLoaded += OnSceneLoaded;
   }
 
-
-  // Start is called before the first frame update
   void OnSceneLoaded(Scene scene, LoadSceneMode mode)
   {
+    InternalDebug.Log("OnSceneLoaded: " + scene.name);
     if (scene.buildIndex == 1) // Only scene where score is updated
     {
       StartScore();
@@ -79,6 +87,14 @@ public class GameManager : MonoBehaviour
     StopScore();
     OnGameOverEvent?.Invoke(this.startYear + this.score);
     this.currentLevel = 1;
+    this.money = 0;
+  }
+
+  public void MissileHitStar()
+  {
+    money += moneyPerHit;
+    OnMoneyChangeEvent?.Invoke(money);
+    OnMissileHitStarEvent?.Invoke();
   }
 
   public int GetTargetScore(int level)

@@ -7,6 +7,7 @@ using Lix.Core;
 public class MissileContainer : MonoBehaviour
 {
   private IInputListener inputListener;
+  private UpgradeManager upgradeManager;
 
   [SerializeField] private Transform missilePrefab;
 
@@ -14,6 +15,7 @@ public class MissileContainer : MonoBehaviour
   void Start()
   {
     inputListener = DIContainer.GetService<IInputListener>();
+    upgradeManager = DIContainer.GetService<UpgradeManager>();
 
     InputAction fireAction = inputListener.GetAction(InputActionType.Fire);
     fireAction.performed += OnFireInputPerformed;
@@ -40,7 +42,7 @@ public class MissileContainer : MonoBehaviour
 
   IEnumerator Reload()
   {
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(upgradeManager.ReloadDelay);
 
     InternalDebug.Log("Reloading");
     // Transform missile = Instantiate(missilePrefab, this.transform, false);

@@ -10,12 +10,10 @@ public class Spacestation : MonoBehaviour
   private World world;
   private IInputListener inputListener;
 
-  // Public Properties
-  [SerializeField] private float movementSpeed = 100f;
-
   // Properties
   private float movementInput;
   private InputAction aimAction;
+  private UpgradeManager upgradeManager;
 
   // Start is called before the first frame update
   void Start()
@@ -23,6 +21,8 @@ public class Spacestation : MonoBehaviour
     this.world = DIContainer.GetService<World>();
 
     inputListener = DIContainer.GetService<IInputListener>();
+
+    upgradeManager = DIContainer.GetService<UpgradeManager>();
 
     InputAction moveAction = inputListener.GetAction(InputActionType.Move);
     moveAction.performed += OnMovementInputPerformed;
@@ -109,7 +109,7 @@ public class Spacestation : MonoBehaviour
       return;
     }
 
-    transform.RotateAround(world.transform.position, Vector3.forward, Time.fixedDeltaTime * movementSpeed * movementInput);
+    transform.RotateAround(world.transform.position, Vector3.forward, Time.fixedDeltaTime * upgradeManager.StationSpeed * movementInput);
   }
 
   private void OnDestroy()

@@ -112,6 +112,10 @@ public class Star : MonoBehaviour
 
       this.gameManager.GameOver();
     }
+    else if (collision.collider.tag == "Missile")
+    {
+      this.gameManager.MissileHitStar();
+    }
   }
 
 }

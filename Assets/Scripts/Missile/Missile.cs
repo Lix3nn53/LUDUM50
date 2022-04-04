@@ -20,7 +20,11 @@ public class Missile : MonoBehaviour
   void Start()
   {
     this.rb = this.GetComponent<Rigidbody2D>();
+
     this.missileContainer = DIContainer.GetService<MissileContainer>();
+    UpgradeManager upgradeManager = DIContainer.GetService<UpgradeManager>();
+
+    this.rb.sharedMaterial.bounciness = upgradeManager.MissilePower;
   }
 
   // Update is called once per frame
